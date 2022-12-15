@@ -44,14 +44,14 @@ namespace GOLStartUpTemplate1
             // Setup the timer
             timer.Interval = 100; // milliseconds
             timer.Tick += Timer_Tick;
-            timer.Enabled = true; // start timer running
-            //CellsAlive.Text = "Living Cells: " + LivingCells.ToString();
+            timer.Enabled = false; // start timer running
+            toolStripStatusLabel1.Text = "Living Cells = " + LivingCells.ToString();
         }
 
         // Calculate the next generation of cells
         private void NextGeneration()
         {
-
+            
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 // Iterate through the universe in the x, left to right
@@ -147,6 +147,9 @@ namespace GOLStartUpTemplate1
             if (isHUDVisible)
             {
                 //DRAW HUD
+                label1gen.Text = "Generations" + generations.ToString();
+                label1cell.Text = "Cell Count" + LivingCells.ToString();
+            
             }
             // Cleaning up pens and brushes
             gridPen.Dispose();
@@ -176,28 +179,28 @@ namespace GOLStartUpTemplate1
                 graphicsPanel1.Invalidate();
             }
         }
-
+        //Exit
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
+        //Play
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             timer.Enabled = true;
         }
-
+        //Pause
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
         }
-
+        //Next button
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             NextGeneration();
 
         }
-
+        //button menu dropdown
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
@@ -228,7 +231,7 @@ namespace GOLStartUpTemplate1
                 {
                     int xCheck = x + xOffset;
                     int yCheck = y + yOffset;
-                    if (xOffset == 0 || yOffset == 0)
+                    if (xOffset == 0 && yOffset == 0)
                     {
                         continue;
                     }
@@ -285,6 +288,7 @@ namespace GOLStartUpTemplate1
             }
             return sum;
         }
+        //color menu
         private void colorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ColorDialog dlg = new ColorDialog();
@@ -304,21 +308,21 @@ namespace GOLStartUpTemplate1
 
             Properties.Settings.Default.Save();
         }
-
+        //reset button
         private void restToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Reset();
             // Reading the property
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
         }
-
+        //reload button
         private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Reload();
             // Reading the property
             graphicsPanel1.BackColor = Properties.Settings.Default.PanelColor;
         }
-
+        // Randomizer
         private void randomizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int cell;
@@ -343,6 +347,7 @@ namespace GOLStartUpTemplate1
             countlivingcells();
             graphicsPanel1.Invalidate();
         }
+        //seed dialog
         private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ranseed.ShowDialog() == DialogResult.OK)
@@ -370,6 +375,7 @@ namespace GOLStartUpTemplate1
                 graphicsPanel1.Invalidate();
             }
         }
+        //Count for cells
         private void countlivingcells()
         {
             LivingCells = 0;
@@ -454,7 +460,7 @@ namespace GOLStartUpTemplate1
             countlivingcells();
             graphicsPanel1.Invalidate();
         }
-
+        //New button
         private void newToolStripButton_Click(object sender, EventArgs e)
         {
             for (int y = 0; y < universe.GetLength(1); y++)
@@ -467,7 +473,7 @@ namespace GOLStartUpTemplate1
             }
             graphicsPanel1.Invalidate();
         }
-
+        //Open button
         private void openToolStripButton_Click(object sender, EventArgs e)
         {  
 
@@ -562,7 +568,7 @@ namespace GOLStartUpTemplate1
             }
             graphicsPanel1.Invalidate();
         }
-
+        //Option button click
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(options.ShowDialog() == DialogResult.OK)
@@ -574,6 +580,16 @@ namespace GOLStartUpTemplate1
                 scratchPad = new bool[options.X, options.Y];
             }
             graphicsPanel1.Invalidate();
+        }
+
+        private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+             isHUDVisible = false;
+        }
+
+        private void hUDToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            isHUDVisible = false;
         }
     }
 }
