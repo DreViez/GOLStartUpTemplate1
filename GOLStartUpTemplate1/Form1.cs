@@ -88,7 +88,6 @@ namespace GOLStartUpTemplate1
 
             // Update status strip generations
             toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
-
             graphicsPanel1.Invalidate();
         }
 
@@ -491,7 +490,6 @@ namespace GOLStartUpTemplate1
             if (dlg.ShowDialog() == DialogResult.OK)
             {
 
-                // Saves the Image via a FileStream created by the OpenFile method.   
                 Stream s = new MemoryStream();
                 StreamReader raeder = new StreamReader(dlg.FileName);
 
@@ -530,7 +528,6 @@ namespace GOLStartUpTemplate1
 
                 StreamReader reader = new StreamReader(dlg.FileName);
 
-                //   StreamReader st = new StreamReader(openfile.FileName);
 
                 while ((line = reader.ReadLine()) != null)
                 {
